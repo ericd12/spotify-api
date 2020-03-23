@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react';
+import './App.css';
+import SpotifyControlContainer from './components/SpotifyControlContainer';
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {faForward, faBackward, faPause, faPlay} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faForward, faBackward, faPause, faPlay)
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SpotifyControlContainer />        
     </div>
   );
 }
+
 
 export default App;
