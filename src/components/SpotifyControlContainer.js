@@ -58,7 +58,7 @@ const SpotifyControlContainer = ({ start }) => {
 
     return(
         <div>
-            <h1>Spotify Player</h1>
+            <h1>Spotify-Api Player</h1>
             {authentication.loggedIn ? (
                 <div>
                     <Player
