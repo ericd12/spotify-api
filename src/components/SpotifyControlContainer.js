@@ -1,7 +1,8 @@
 
 import React, {useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Player from './Player'
+import styled from 'styled-components';
+
 
 const Button = styled.button`
     cursor: pointer;
@@ -18,19 +19,21 @@ const Button = styled.button`
     background-color: #41c412;
     color: black;
     }
-`;
+`
 
 const SpotifyControlContainer = ({ start }) => {
     const [authentication, setAuthentication] = useState({
       loggedIn: false,
       token: null
     })
+
     useEffect(() => {
-      const token = checkSpotifyAccessToken()
-      if (token) {
-        setAuthentication({loggedIn: true, token})
-      }
-    }, [])
+        const token = checkSpotifyAccessToken()
+            if (token) {
+                setAuthentication({loggedIn: true, token})
+            }
+        }, []
+    )
  
     const checkSpotifyAccessToken = () =>{ 
         const params = getHashParams();
@@ -48,7 +51,7 @@ const SpotifyControlContainer = ({ start }) => {
            e = r.exec(q);
         }
         return hashParams;
-      }
+    }
 
     const logout = () =>
         setAuthentication({
@@ -71,7 +74,8 @@ const SpotifyControlContainer = ({ start }) => {
                 <a href='http://localhost:8888'>
                     <Button>Login to Spotify</Button>
                 </a>      
-            )}
+                )
+            }
         </div>
     )
 }

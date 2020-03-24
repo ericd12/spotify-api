@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import Spotify from 'spotify-web-api-js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const Img = styled.img`
-border: 3px solid #41c412;
-border-radius: 5%;
+  border: 3px solid #41c412;
+  border-radius: 5%;
 `
-
 const Button = styled.button`
   cursor: pointer;
   background: transparent;
@@ -21,8 +21,9 @@ const Button = styled.button`
   &:hover {
   background-color: #41c412;
   color: black;
-}
+  }
 `
+
 
 const Player = ({accessToken}) => {
   const SpotifyApi = new Spotify()
@@ -31,18 +32,16 @@ const Player = ({accessToken}) => {
   const [song, setSong] = useState({ name: null, artists: null, image: null })
   const [skips, setSkips] = useState(0)
 
-  
-
   useEffect(() => {
       SpotifyApi.setAccessToken(accessToken)
       getUserInfo().then(user => setName(user))
       getPlaybackState().then(playback => {
         const { playing, name, artists, image } = playback
         setPlaying(playing)
-        setSong({ name, artists, image })
-       
+        setSong({ name, artists, image })       
       })
-  }, [skips])
+    }, [skips]
+  )
   
   const getPlaybackState = async () => {
     const currentPlaybackState = await SpotifyApi.getMyCurrentPlaybackState()
@@ -62,12 +61,10 @@ const Player = ({accessToken}) => {
     const user = await SpotifyApi.getMe()
     const hasNumber = (user) => {
       return (/\d/.test(user.display_name) ? user.email : user.display_name)
-      }
-      return hasNumber(user) 
     }
+    return hasNumber(user) 
+  }
   
- 
-
   const handlePlay = () => {
     playing ? SpotifyApi.pause() : SpotifyApi.play()
     setPlaying(!playing)
