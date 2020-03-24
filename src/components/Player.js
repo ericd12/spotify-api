@@ -60,8 +60,13 @@ const Player = ({accessToken}) => {
   
   const getUserInfo = async () => {
     const user = await SpotifyApi.getMe()
-    return user.email
-  }
+    const hasNumber = (user) => {
+      return (/\d/.test(user.display_name) ? user.email : user.display_name)
+      }
+      return hasNumber(user) 
+    }
+  
+ 
 
   const handlePlay = () => {
     playing ? SpotifyApi.pause() : SpotifyApi.play()
