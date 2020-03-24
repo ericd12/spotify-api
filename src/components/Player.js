@@ -25,25 +25,27 @@ const Button = styled.button`
 `
 
 const Player = ({accessToken}) => {
-  const spotifyAPI = new Spotify()
+  const SpotifyApi = new Spotify()
   const [name, setName] = useState('')
   const [playing, setPlaying] = useState(false)
   const [song, setSong] = useState({ name: null, artists: null, image: null })
   const [skips, setSkips] = useState(0)
 
+  
 
   useEffect(() => {
-      spotifyAPI.setAccessToken(accessToken)
+      SpotifyApi.setAccessToken(accessToken)
       getUserInfo().then(user => setName(user))
       getPlaybackState().then(playback => {
         const { playing, name, artists, image } = playback
         setPlaying(playing)
         setSong({ name, artists, image })
+       
       })
   }, [skips])
   
   const getPlaybackState = async () => {
-    const currentPlaybackState = await spotifyAPI.getMyCurrentPlaybackState()
+    const currentPlaybackState = await SpotifyApi.getMyCurrentPlaybackState()
     const { is_playing, item } = currentPlaybackState
     const { name, artists, album } = item
     const image = album.images[1].url
@@ -57,16 +59,18 @@ const Player = ({accessToken}) => {
   }
   
   const getUserInfo = async () => {
-    const user = await spotifyAPI.getMe()
+    const user = await SpotifyApi.getMe()
     return user.email
   }
+
   const handlePlay = () => {
-    playing ? spotifyAPI.pause() : spotifyAPI.play()
+    playing ? SpotifyApi.pause() : SpotifyApi.play()
     setPlaying(!playing)
   }
+
   const handleSkip = async e => {
     const { id } = e.target
-    id === 'next' ? spotifyAPI.skipToNext() : spotifyAPI.skipToPrevious()
+    id === 'next' ? SpotifyApi.skipToNext() : SpotifyApi.skipToPrevious()
     setPlaying(true)
     setTimeout(() => setSkips(skips + 1), 400)
   }
